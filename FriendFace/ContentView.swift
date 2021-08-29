@@ -11,12 +11,15 @@ struct ContentView: View {
     @State private var users = [User]()
     
     var body: some View {
-        List(users) { user in
-            Text(user.name)
-            Text("\(user.age)")
-            Text(user.company)
+        NavigationView {
+            List(users) { user in
+                Text(user.name)
+                Text("\(user.age)")
+                Text(user.company)
+            }
+            .onAppear(perform: loadUsers)
+            .navigationBarTitle(Text("FriendFace"))
         }
-        .onAppear(perform: loadUsers)
     }
     
     func loadUsers() {
