@@ -14,6 +14,7 @@
 		05B1FA7B26DC167F000708FA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05B1FA7A26DC167F000708FA /* Preview Assets.xcassets */; };
 		05B1FA7E26DC1680000708FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B1FA7C26DC1680000708FA /* LaunchScreen.storyboard */; };
 		05B1FA8726DC16A0000708FA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B1FA8626DC16A0000708FA /* User.swift */; };
+		05B1FA8926DC20F5000708FA /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B1FA8826DC20F5000708FA /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		05B1FA7D26DC1680000708FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		05B1FA7F26DC1680000708FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05B1FA8626DC16A0000708FA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		05B1FA8826DC20F5000708FA /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				05B1FA7126DC167E000708FA /* AppDelegate.swift */,
 				05B1FA7326DC167E000708FA /* SceneDelegate.swift */,
 				05B1FA7526DC167E000708FA /* ContentView.swift */,
+				05B1FA8826DC20F5000708FA /* DetailView.swift */,
 				05B1FA8526DC1692000708FA /* Model */,
 				05B1FA7726DC167F000708FA /* Assets.xcassets */,
 				05B1FA7C26DC1680000708FA /* LaunchScreen.storyboard */,
@@ -159,6 +162,7 @@
 				05B1FA8726DC16A0000708FA /* User.swift in Sources */,
 				05B1FA7226DC167E000708FA /* AppDelegate.swift in Sources */,
 				05B1FA7426DC167E000708FA /* SceneDelegate.swift in Sources */,
+				05B1FA8926DC20F5000708FA /* DetailView.swift in Sources */,
 				05B1FA7626DC167E000708FA /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

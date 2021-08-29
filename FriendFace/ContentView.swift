@@ -13,30 +13,19 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(users) { user in
-                Text(user.name)
-                Text("\(user.age)")
-                Text(user.company)
+                NavigationLink(
+                    destination: DetailView(user: user),
+                    label: {
+                        Text(user.name)
+                        Text("\(user.age)")
+                        Text(user.company)
+                    })
             }
-            .onAppear(perform: loadUsers)
+            .onAppear {
+                User.loadUsers { users = $0 }
+            }
             .navigationBarTitle(Text("FriendFace"))
         }
-    }
-    
-    func loadUsers() {
-        let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json")!
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else {
-                print("Error fetching data. \(error?.localizedDescription ?? "Unkown error.")")
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                users = try decoder.decode([User].self, from: data)
-            } catch {
-                print("Error decoding data. \(error.localizedDescription)")
-            }
-        }.resume()
     }
 }
 
