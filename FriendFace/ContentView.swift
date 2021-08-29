@@ -16,20 +16,22 @@ struct ContentView: View {
             Text("\(user.age)")
             Text(user.company)
         }
-        .onAppear(perform: {
-            let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json")!
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                guard let data = data else {
-                    print("Error fetching data. \(error?.localizedDescription ?? "Unkown error.")")
-                    return
-                }
-                do {
-                    users = try JSONDecoder().decode([User].self, from: data)
-                } catch {
-                    print("Error decoding data. \(error.localizedDescription)")
-                }
-            }.resume()
-        })
+        .onAppear(perform: loadUsers)
+    }
+    
+    func loadUsers() {
+        let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json")!
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else {
+                print("Error fetching data. \(error?.localizedDescription ?? "Unkown error.")")
+                return
+            }
+            do {
+                users = try JSONDecoder().decode([User].self, from: data)
+            } catch {
+                print("Error decoding data. \(error.localizedDescription)")
+            }
+        }.resume()
     }
 }
 
