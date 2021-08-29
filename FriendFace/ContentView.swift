@@ -27,7 +27,9 @@ struct ContentView: View {
                 return
             }
             do {
-                users = try JSONDecoder().decode([User].self, from: data)
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                users = try decoder.decode([User].self, from: data)
             } catch {
                 print("Error decoding data. \(error.localizedDescription)")
             }
