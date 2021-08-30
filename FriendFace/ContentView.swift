@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var users = Users()
+    @ObservedObject private var users = Users()
     
     var body: some View {
         NavigationView {
