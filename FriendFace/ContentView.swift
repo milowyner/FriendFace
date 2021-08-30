@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var users = [User]()
+    @State private var users = Users()
     
     var body: some View {
         NavigationView {
-            List(users) { user in
+            List(users.list) { user in
                 NavigationLink(
                     destination: DetailView(user: user, users: users),
                     label: {
@@ -26,9 +26,6 @@ struct ContentView: View {
                             }
                         }
                     })
-            }
-            .onAppear {
-                User.loadUsers { users = $0 }
             }
             .navigationBarTitle("FriendFace")
         }

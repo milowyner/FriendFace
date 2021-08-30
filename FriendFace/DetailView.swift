@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailView: View {
     let user: User
-    let users: [User]
+    let users: Users
     
     var body: some View {
         List {
@@ -27,7 +27,7 @@ struct DetailView: View {
             
             ForEach(user.friends) { friend in
                 NavigationLink(
-                    destination: DetailView(user: users.first(where: { $0.id == friend.id})!, users: users),
+                    destination: DetailView(user: users.list.first(where: { $0.id == friend.id})!, users: users),
                     label: {
                         Text(friend.name)
                     })
@@ -53,7 +53,7 @@ struct DetailView: View {
 
 fileprivate struct PreviewContainer: View {
     @State private var user: User?
-    @State private var users = [User]()
+    @State private var users = Users()
     
     var body: some View {
         NavigationView {
@@ -62,9 +62,6 @@ fileprivate struct PreviewContainer: View {
             } else {
                 Text("Run the live preview")
             }
-        }
-        .onAppear {
-            User.loadUsers { user = $0[0] }
         }
     }
 }

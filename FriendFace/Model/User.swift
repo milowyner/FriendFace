@@ -27,22 +27,3 @@ struct User: Identifiable, Decodable {
         return formatter.string(from: registered)
     }
 }
-
-extension User {
-    static func loadUsers(completion: @escaping ([User]) -> ()) {
-        let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json")!
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else {
-                print("Error fetching data. \(error?.localizedDescription ?? "Unkown error.")")
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                completion(try decoder.decode([User].self, from: data))
-            } catch {
-                print("Error decoding data. \(error.localizedDescription)")
-            }
-        }.resume()
-    }
-}
