@@ -11,11 +11,29 @@ struct DetailView: View {
     let user: User
     
     var body: some View {
-        VStack {
-            Text(user.name)
-            Text("\(user.age)")
-            Text(user.company)
-            Text(user.address)
+        VStack(alignment: .leading, spacing: 16) {
+            Detail(label: "Age: ", content: "\(user.age)")
+            Detail(label: "Company: ", content: user.company)
+            Detail(label: "Email: ", content: user.email)
+            Detail(label: "Address: ", content: user.address)
+            Detail(label: "About: ", content: user.about)
+            Detail(label: "Registered: ", content: user.registeredFormatted)
+            Spacer()
+        }
+        .padding()
+        .navigationBarTitle(user.name)
+    }
+    
+    struct Detail: View {
+        let label: String
+        let content: String
+        
+        var body: some View {
+            HStack(alignment: .top, spacing: 0) {
+                Text(label)
+                    .font(.headline)
+                Text(content)
+            }
         }
     }
 }
@@ -24,11 +42,9 @@ fileprivate struct PreviewContainer: View {
     @State private var user: User?
     
     var body: some View {
-        Group {
+        NavigationView {
             if let user = user {
                 DetailView(user: user)
-            } else {
-                Text("Run the live preview")
             }
         }
         .onAppear {

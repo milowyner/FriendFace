@@ -18,6 +18,13 @@ struct User: Identifiable, Decodable {
     let about: String
     let registered: Date
     let tags: [String]
+    
+    var registeredFormatted: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        return formatter.string(from: registered)
+    }
 }
 
 extension User {

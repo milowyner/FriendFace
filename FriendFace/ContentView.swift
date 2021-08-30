@@ -24,7 +24,7 @@ struct ContentView: View {
             .onAppear {
                 User.loadUsers { users = $0 }
             }
-            .navigationBarTitle(Text("FriendFace"))
+            .navigationBarTitle("FriendFace")
         }
     }
 }
