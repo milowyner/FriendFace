@@ -14,7 +14,7 @@ struct ContentView: View {
         NavigationView {
             List(users) { user in
                 NavigationLink(
-                    destination: DetailView(user: user),
+                    destination: DetailView(user: user, users: users),
                     label: {
                         HStack {
                             VStack(alignment: .leading) {
