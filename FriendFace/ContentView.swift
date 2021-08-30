@@ -16,9 +16,15 @@ struct ContentView: View {
                 NavigationLink(
                     destination: DetailView(user: user),
                     label: {
-                        Text(user.name)
-                        Text("\(user.age)")
-                        Text(user.company)
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(user.name)
+                                HStack {
+                                    Text("\(user.age) years old, works at \(user.company)")
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
                     })
             }
             .onAppear {
