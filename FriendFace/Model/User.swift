@@ -18,6 +18,7 @@ struct User: Identifiable, Decodable {
     let about: String
     let registered: Date
     let tags: [String]
+    let friends: [Friend]
     
     var registeredFormatted: String {
         let formatter = DateFormatter()
