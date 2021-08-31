@@ -10,6 +10,7 @@ import CoreData
 
 struct DetailView: View {
     let user: UserEntity
+    @FetchRequest(entity: UserEntity.entity(), sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]) var users: FetchedResults<UserEntity>
     
     var body: some View {
         List {
@@ -25,13 +26,13 @@ struct DetailView: View {
                     .padding(.top)
             }
             
-//            ForEach(user.friends) { friend in
-//                NavigationLink(
-//                    destination: Text(""), users: users),
-//                    label: {
-//                        Text(friend.name)
-//                    })
-//            }
+            ForEach(user.friendArray) { friend in
+                NavigationLink(
+                    destination: DetailView(user: users.first(where: { $0.id == friend.id })!),
+                    label: {
+                        Text(friend.name ?? "")
+                    })
+            }
         }
         .padding(.top)
         .navigationBarTitle(user.name ?? "")

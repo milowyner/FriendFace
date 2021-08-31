@@ -10,7 +10,7 @@ import CoreData
 
 class UserEntity: NSManagedObject, Decodable {
     enum CodingKeys: CodingKey {
-        case id, name, age, company, email, address, about, registered
+        case id, name, age, company, email, address, about, registered, friends
     }
     
     static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -27,6 +27,7 @@ class UserEntity: NSManagedObject, Decodable {
         self.address = try container.decode(String.self, forKey: .address)
         self.about = try container.decode(String.self, forKey: .about)
         self.registered = try container.decode(Date.self, forKey: .registered)
+        self.friends = try container.decode(Set<FriendEntity>.self, forKey: .friends) as NSSet
     }
     
     var registeredFormatted: String {
@@ -35,6 +36,13 @@ class UserEntity: NSManagedObject, Decodable {
         formatter.dateStyle = .long
         formatter.timeStyle = .short
         return formatter.string(from: registered)
+    }
+    
+    var friendArray: [FriendEntity] {
+        let set = friends as? Set<FriendEntity> ?? []
+        return set.sorted {
+            $0.name ?? "" < $1.name ?? ""
+        }
     }
     
     static func downloadUsers() {
