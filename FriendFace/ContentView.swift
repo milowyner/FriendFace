@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject private var users = Users()
+    @Environment(\.managedObjectContext) var context
+    @FetchRequest(entity: UserEntity.entity(), sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]) var users: FetchedResults<UserEntity>
     
     var body: some View {
         NavigationView {
-            List(users.list) { user in
+            List(users) { user in
                 NavigationLink(
-                    destination: DetailView(user: user, users: users),
+                    destination: DetailView(user: user),
                     label: {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text(user.name)
+                                Text(user.name ?? "")
                                 HStack {
-                                    Text("\(user.age) years old, works at \(user.company)")
+                                    Text("\(user.age) years old, works at \(user.company ?? "")")
                                         .foregroundColor(.secondary)
                                 }
                             }
@@ -28,6 +29,12 @@ struct ContentView: View {
                     })
             }
             .navigationBarTitle("FriendFace")
+            .onAppear(perform: {
+                if users.isEmpty {
+                    print("Empty! Fetching from internet.")
+                    UserEntity.downloadUsers()
+                }
+            })
         }
     }
 }

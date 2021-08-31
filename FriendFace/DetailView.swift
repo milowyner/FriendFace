@@ -6,35 +6,35 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct DetailView: View {
-    let user: User
-    let users: Users
+    let user: UserEntity
     
     var body: some View {
         List {
             VStack(alignment: .leading, spacing: 16) {
                 Detail(label: "Age: ", content: "\(user.age)")
-                Detail(label: "Company: ", content: user.company)
-                Detail(label: "Email: ", content: user.email)
-                Detail(label: "Address: ", content: user.address)
-                Detail(label: "About: ", content: user.about)
+                Detail(label: "Company: ", content: user.company ?? "")
+                Detail(label: "Email: ", content: user.email ?? "")
+                Detail(label: "Address: ", content: user.address ?? "")
+                Detail(label: "About: ", content: user.about ?? "")
                 Detail(label: "Registered: ", content: user.registeredFormatted)
                 Text("Friends")
                     .font(.title.bold())
                     .padding(.top)
             }
             
-            ForEach(user.friends) { friend in
-                NavigationLink(
-                    destination: DetailView(user: users.list.first(where: { $0.id == friend.id})!, users: users),
-                    label: {
-                        Text(friend.name)
-                    })
-            }
+//            ForEach(user.friends) { friend in
+//                NavigationLink(
+//                    destination: Text(""), users: users),
+//                    label: {
+//                        Text(friend.name)
+//                    })
+//            }
         }
         .padding(.top)
-        .navigationBarTitle(user.name)
+        .navigationBarTitle(user.name ?? "")
     }
     
     struct Detail: View {
@@ -52,22 +52,25 @@ struct DetailView: View {
 }
 
 fileprivate struct PreviewContainer: View {
-    @State private var user: User?
-    @State private var users = Users()
+    @FetchRequest(entity: DetailView_Previews.entity, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)]) var users: FetchedResults<UserEntity>
     
     var body: some View {
         NavigationView {
-            if let user = user {
-                DetailView(user: user, users: users)
-            } else {
-                Text("Run the live preview")
-            }
+            DetailView(user: users[0])
         }
+        .onAppear(perform: {
+            if users.isEmpty {
+                UserEntity.downloadUsers()
+            }
+        })
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    static let entity = NSEntityDescription.entity(forEntityName: "UserEntity", in: context)!
+    
     static var previews: some View {
-        PreviewContainer()
+        PreviewContainer().environment(\.managedObjectContext, context)
     }
 }
